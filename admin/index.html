@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Society Admin | St. Anthony's College</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="admin.css"></head>
+<body class="admin-body"><main class="admin-shell">
+<a class="admin-back" href="../index.html">← Back to website</a>
+<header class="admin-heading"><p class="section-kicker">ST. ANTHONY'S COLLEGE · COMMERCE SOCIETY</p><h1>Photo <em>Management</em></h1><p>Sign in to upload or replace the four Society Team photos.</p></header>
+<section class="admin-panel" id="login-panel"><h2>Admin Login</h2><p id="setup-note" class="setup-note" hidden></p>
+<form id="login-form"><label>Email<input type="email" id="email" autocomplete="username" required></label><label>Password<input type="password" id="password" autocomplete="current-password" required></label><button class="button button-gold" type="submit">Sign in</button></form></section>
+<section class="admin-panel" id="upload-panel" hidden><div class="admin-topline"><h2>Society Team Photos</h2><button id="logout" class="admin-logout" type="button">Sign out</button></div>
+<p class="admin-help">Choose a role and upload a JPG, PNG or WebP image (maximum 5 MB). Uploading again replaces the current photo.</p>
+<form id="upload-form"><label>Position<select id="role" required><option value="teacher">Teacher-in-Charge</option><option value="president">President</option><option value="secretary">Secretary</option><option value="treasurer">Treasurer</option></select></label>
+<label>Photo<input type="file" id="photo" accept="image/jpeg,image/png,image/webp" required></label><img id="preview" alt="Selected photo preview" hidden><button class="button button-gold" type="submit">Upload Photo</button></form>
+<p id="status" role="status" aria-live="polite"></p><div class="admin-current"><h3>Current photos</h3><div id="current-photos" class="current-photos"></div></div></section>
+<p class="admin-footnote">Only upload photos approved for public display by the school and the people shown.</p>
+</main><script type="module" src="admin.js"></script></body></html>
