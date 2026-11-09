@@ -61,3 +61,6 @@ footer{background:#1b100b;color:#f7efdf}
 .gallery-empty{color:#f1be4e;grid-column:1/-1}
 @media(max-width:800px){.gallery-section .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.gallery-section .gallery-grid{grid-template-columns:1fr}}
+
+/* Contact form */
+.society-contact-form{display:grid;gap:14px;margin-top:18px}.society-contact-form label{display:grid;gap:7px;font-size:13px;font-weight:600}.society-contact-form input,.society-contact-form textarea{width:100%;box-sizing:border-box;border:1px solid #d8c8ae;padding:12px;font:inherit;background:#fff;color:#24160f}.society-contact-form textarea{resize:vertical}.society-contact-form button{justify-self:start;cursor:pointer}.society-contact-form button:disabled{opacity:.65;cursor:wait}.contact-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.contact-feedback{font-size:13px;min-height:1.4em}

@@ -11,3 +11,6 @@ body.admin-body{min-height:100vh;background:var(--cream)}.admin-shell{width:min(
 #events-panel{margin-top:24px}#event-form{display:grid;gap:14px}#event-form label{display:grid;gap:7px}#event-form input,#event-form textarea{width:100%;padding:12px;border:1px solid #dfcdb4;background:#fff;font:inherit}#event-list{display:grid;gap:12px}.event-admin-card{padding:15px;border:1px solid #dfcdb4}.event-admin-card img{display:block;max-width:180px;max-height:180px;object-fit:contain;margin:10px 0}.event-admin-card button{margin:8px 8px 0 0;padding:8px 14px;cursor:pointer}
 
 .gallery-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}.gallery-admin-card{border:1px solid #e2d5bd;padding:8px;overflow-wrap:anywhere}.gallery-admin-card img{width:100%;aspect-ratio:1;object-fit:cover}.gallery-admin-card button{cursor:pointer;padding:8px 12px}.gallery-admin-card p{font-size:12px}
+
+/* Contact inbox */
+.inbox-list{display:grid;gap:16px}.inbox-message{border:1px solid #e2d5c0;padding:18px;background:#fff;overflow-wrap:anywhere}.inbox-message h3{margin:0 0 8px}.inbox-message small{display:block;margin:8px 0;color:#76685b}.inbox-message p{white-space:pre-wrap;line-height:1.6}.inbox-message button{cursor:pointer;padding:8px 16px;border:1px solid #b59b73;background:#fbf6e9;color:#24160f}
