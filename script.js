@@ -25,4 +25,8 @@ function setLanguage(language) {
   });
 }
 langButtons.forEach(button => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
-setLanguage("en");
+const currentLanguage = window.location.pathname.includes("/si/")
+  ? "si"
+  : "en";
+
+setLanguage(currentLanguage);
