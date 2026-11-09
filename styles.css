@@ -64,3 +64,13 @@ footer{background:#1b100b;color:#f7efdf}
 
 /* Contact form */
 .society-contact-form{display:grid;gap:14px;margin-top:18px}.society-contact-form label{display:grid;gap:7px;font-size:13px;font-weight:600}.society-contact-form input,.society-contact-form textarea{width:100%;box-sizing:border-box;border:1px solid #d8c8ae;padding:12px;font:inherit;background:#fff;color:#24160f}.society-contact-form textarea{resize:vertical}.society-contact-form button{justify-self:start;cursor:pointer}.society-contact-form button:disabled{opacity:.65;cursor:wait}.contact-honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.contact-feedback{font-size:13px;min-height:1.4em}
+
+/* Study materials */
+.materials-section{background:#fffaf0}.material-filters{display:flex;flex-wrap:wrap;gap:15px;margin:20px 0 30px}.material-filters label{display:grid;gap:7px;font-weight:600;font-size:13px}.material-filters select{padding:12px;border:1px solid #d5c4a6;background:#fff;color:#24160f;min-width:190px}.materials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:18px}.material-card{border:1px solid #e3d6bd;background:#fff;padding:24px;box-shadow:0 6px 20px rgba(36,22,15,.04)}.material-card small{color:#8c6125;font-weight:700}.material-card h3{margin:12px 0 16px;color:#24160f}.material-download{display:inline-block;background:#2b150a;color:#fff;padding:11px 15px;text-decoration:none}.material-note{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;line-height:1.65}
+
+/* Clickable What We Do cards */
+.activity-card{display:block;color:inherit;text-decoration:none;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background-color .22s ease,box-shadow .22s ease}
+.activity-card:hover,.activity-card:focus-visible{transform:translateY(-5px);border-color:var(--gold);background-color:#ffffff0b;box-shadow:0 10px 30px #00000022}
+.activity-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#materials,#members,#events{scroll-margin-top:95px}
+@media(prefers-reduced-motion:reduce){.activity-card{transition:none}.activity-card:hover,.activity-card:focus-visible{transform:none}}
