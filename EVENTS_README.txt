@@ -1,0 +1,1 @@
+Event Management: Supabase society_events table requires columns title_si TEXT and description_si TEXT in addition to original setup. Run EVENTS_MIGRATION.sql in Supabase SQL Editor. Existing event-posters bucket and 3 admin policies remain unchanged. Admin: /admin/index.html. English and Sinhala website events update automatically after publishing.

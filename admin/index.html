@@ -3,7 +3,7 @@
 <title>Society Admin | St. Anthony's College</title><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="admin.css"></head>
 <body class="admin-body"><main class="admin-shell">
 <a class="admin-back" href="../index.html">← Back to website</a>
-<header class="admin-heading"><p class="section-kicker">ST. ANTHONY'S COLLEGE · COMMERCE SOCIETY</p><h1>Photo <em>Management</em></h1><p>Sign in to upload or replace the four Society Team photos.</p></header>
+<header class="admin-heading"><p class="section-kicker">ST. ANTHONY'S COLLEGE · COMMERCE SOCIETY</p><h1>Society <em>Management</em></h1><p>Manage team photos and publish society events.</p></header>
 <section class="admin-panel" id="login-panel"><h2>Admin Login</h2><p id="setup-note" class="setup-note" hidden></p>
 <form id="login-form"><label>Email<input type="email" id="email" autocomplete="username" required></label><label>Password<input type="password" id="password" autocomplete="current-password" required></label><button class="button button-gold" type="submit">Sign in</button></form></section>
 <section class="admin-panel" id="upload-panel" hidden><div class="admin-topline"><h2>Society Team Photos</h2><button id="logout" class="admin-logout" type="button">Sign out</button></div>
@@ -11,5 +11,7 @@
 <form id="upload-form"><label>Position<select id="role" required><option value="teacher">Teacher-in-Charge</option><option value="president">President</option><option value="secretary">Secretary</option><option value="treasurer">Treasurer</option></select></label>
 <label>Photo<input type="file" id="photo" accept="image/jpeg,image/png,image/webp" required></label><img id="preview" alt="Selected photo preview" hidden><button class="button button-gold" type="submit">Upload Photo</button></form>
 <p id="status" role="status" aria-live="polite"></p><div class="admin-current"><h3>Current photos</h3><div id="current-photos" class="current-photos"></div></div></section>
+<section class="admin-panel" id="events-panel" hidden><h2>Event Management</h2><p class="admin-help">Publish, edit or delete events shown on both website languages. Only upload approved posters.</p>
+<form id="event-form"><input type="hidden" id="event-id"><label>Event name (English)<input id="event-title" maxlength="180" required></label><label>Event name (Sinhala)<input id="event-title-si" maxlength="180" placeholder="සිංහල නම"></label><label>Description (English)<textarea id="event-description" rows="3"></textarea></label><label>Description (Sinhala)<textarea id="event-description-si" rows="3"></textarea></label><label>Date<input id="event-date" type="date" required></label><label>Time (optional)<input id="event-time" type="time"></label><label>Venue<input id="event-venue" maxlength="200"></label><label>Poster (JPG, PNG, WebP, max 5MB)<input id="event-poster" type="file" accept="image/jpeg,image/png,image/webp"></label><button type="submit" class="button button-gold" id="event-submit">Publish Event</button> <button type="button" id="event-cancel" hidden>Cancel editing</button></form><p id="event-status" role="status" aria-live="polite"></p><h3>Published Events</h3><div id="event-list"></div></section>
 <p class="admin-footnote">Only upload photos approved for public display by the school and the people shown.</p>
-</main><script type="module" src="admin.js"></script></body></html>
+</main><script type="module" src="admin.js"></script><script type="module" src="events-admin.js"></script></body></html>

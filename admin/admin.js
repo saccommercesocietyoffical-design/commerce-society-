@@ -14,7 +14,7 @@ if (SUPABASE_URL.includes("PASTE_") || SUPABASE_ANON_KEY.includes("PASTE_")) {
   async function refresh() {
     const {data:{session}} = await supabase.auth.getSession();
     $("login-panel").hidden = !!session; $("upload-panel").hidden = !session;
-    if (session) await loadCurrent();
+    if (session) { await loadCurrent(); await window.loadSocietyEvents?.(); }
   }
   async function loadCurrent() {
     const {data,error} = await supabase.from("society_profile_photos").select("role,public_url");

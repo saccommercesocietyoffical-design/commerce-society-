@@ -7,3 +7,5 @@ body.admin-body{min-height:100vh;background:var(--cream)}.admin-shell{width:min(
 .admin-panel h2,.admin-panel label{color:#2b150a}
 .admin-panel input,.admin-panel select{border-color:#e1d1b8}
 .admin-back,.admin-logout{color:#8a570e}
+
+#events-panel{margin-top:24px}#event-form{display:grid;gap:14px}#event-form label{display:grid;gap:7px}#event-form input,#event-form textarea{width:100%;padding:12px;border:1px solid #dfcdb4;background:#fff;font:inherit}#event-list{display:grid;gap:12px}.event-admin-card{padding:15px;border:1px solid #dfcdb4}.event-admin-card img{display:block;max-width:180px;max-height:180px;object-fit:contain;margin:10px 0}.event-admin-card button{margin:8px 8px 0 0;padding:8px 14px;cursor:pointer}
