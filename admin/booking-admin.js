@@ -9,3 +9,38 @@ el('booking-refresh').addEventListener('click',load);db.auth.onAuthStateChange((
 
 async function loadSettings(){if(!authorized)return;const {data,error}=await db.from('festival_ticket_settings').select('*').eq('id',1).single();const msg=el('festival-settings-status');if(error){msg.textContent='Settings error: '+error.message;return;}const fields={title:'event_title',date:'event_date',time:'event_time',venue:'venue',description:'description','price-one':'price_one','price-two':'price_two',open:'bookings_open'};for(const [id,key] of Object.entries(fields)){const input=el('festival-setting-'+id);if(id==='open')input.checked=!!data[key];else input.value=id==='time'?String(data[key]).slice(0,5):data[key];}msg.textContent='Current settings loaded.';}
 el('festival-settings-form').addEventListener('submit',async e=>{e.preventDefault();if(!authorized)return;const msg=el('festival-settings-status');const form=e.currentTarget;const btn=form.querySelector('button[type=submit]');const read=id=>el('festival-setting-'+id).value.trim();const payload={event_title:read('title'),event_date:read('date'),event_time:read('time'),venue:read('venue'),description:read('description'),price_one:Number(read('price-one')),price_two:Number(read('price-two')),bookings_open:el('festival-setting-open').checked};if(!Number.isInteger(payload.price_one)||!Number.isInteger(payload.price_two)||payload.price_one<0||payload.price_two<0){msg.textContent='Enter valid whole-number prices.';return;}btn.disabled=true;msg.textContent='Saving…';const {data,error}=await db.from('festival_ticket_settings').update(payload).eq('id',1).select('id');msg.textContent=error?'Save failed: '+error.message:!data?.length?'Settings were not updated. Check admin permissions.':'Settings saved! Refresh the public website to see changes.';btn.disabled=false;});
+
+// Exact-reference admin search, protected by the existing admin-only SELECT RLS policy.
+el('booking-admin-find').addEventListener('click',async()=>{
+ if(!authorized)return;
+ const ref=el('booking-admin-search').value.trim().toUpperCase();
+ const feedback=el('booking-admin-search-status');
+ if(!/^FF26-[A-Z0-9]{10}$/.test(ref)){feedback.textContent='Enter a valid reference (FF26-XXXXXXXXXX).';return;}
+ feedback.textContent='Searching…';
+ const {data,error}=await db.from('festival_reservations').select('id,booking_ref,student_name,contact_email,ticket_type,amount_lkr,status,created_at').eq('booking_ref',ref).maybeSingle();
+ if(error){feedback.textContent='Search failed: '+error.message;return;}
+ if(!data){feedback.textContent='No booking found for this reference.';return;}
+ feedback.textContent='Booking found.';
+ const target=el('booking-admin-list');target.replaceChildren();
+ const card=document.createElement('div');card.className='event-admin-card';
+ const title=document.createElement('strong');title.textContent=data.booking_ref+' · '+data.student_name;
+ const detail=document.createElement('p');detail.textContent=(data.ticket_type==='one'?'Admit One':'Admit Two')+' · Rs. '+data.amount_lkr+' · '+data.status+' · '+new Date(data.created_at).toLocaleString();
+ card.append(title,detail);
+ if(data.contact_email){const email=document.createElement('p');email.textContent='Email: '+data.contact_email;card.append(email);}
+ for(const [state,label] of [['approved','Approve'],['paid','Mark Paid'],['rejected','Reject']]){
+  const button=document.createElement('button');button.type='button';button.textContent=label;button.disabled=data.status===state;
+  button.addEventListener('click',async()=>{
+   if(!confirm('Change '+ref+' to '+state+'?'+(state==='paid'?' Only if cash was received.':'')))return;
+   const {error}=await db.from('festival_reservations').update({status:state}).eq('id',data.id);
+   if(error)feedback.textContent=error.message;else el('booking-admin-find').click();
+  });card.append(button);
+ }
+ const del=document.createElement('button');del.type='button';del.textContent='Delete Booking';del.className='booking-delete-btn';
+ del.addEventListener('click',async()=>{
+  if(!confirm('Permanently delete booking '+ref+'?'))return;
+  const {data:deleted,error}=await db.from('festival_reservations').delete().eq('id',data.id).select('id');
+  if(error||!deleted?.length){feedback.textContent=error?.message||'Delete not permitted';return;}
+  feedback.textContent='Booking deleted.';target.replaceChildren();
+ });card.append(del);target.append(card);
+});
+el('booking-admin-show-all').addEventListener('click',()=>{el('booking-admin-search-status').textContent='';load();});
