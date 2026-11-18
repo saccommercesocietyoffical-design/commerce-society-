@@ -92,3 +92,8 @@ footer{background:#1b100b;color:#f7efdf}
 .booking-status-lookup form{display:grid;gap:12px}
 .booking-status-lookup input{display:block;width:100%;max-width:430px;padding:12px;border:1px solid #cdbda9}
 .ticket-status-result{font-weight:700}
+
+.saved-bookings{border:1px solid #d8b56a;border-radius:12px;padding:22px;margin:18px 0;background:#fffaf2}
+.saved-bookings h3{margin:0 0 8px}
+.saved-booking-item{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid #e2d5c1}
+.saved-booking-item span{font-weight:600}
