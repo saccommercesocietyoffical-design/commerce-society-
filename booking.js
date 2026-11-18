@@ -10,7 +10,8 @@ const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent
 put('festival-event-title',data.event_title);put('festival-event-description',data.description);
 const date=new Date(data.event_date+'T12:00:00');const niceDate=isNaN(date)?data.event_date:date.toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'});
 put('festival-event-details',`${niceDate} · ${data.event_time.slice(0,5)} · ${data.venue}`);
-put('festival-option-one',`Admit One — Rs. ${data.price_one}`);put('festival-option-two',`Admit Two — Rs. ${data.price_two}`);
+const isSinhala=location.pathname.includes('/si/');
+put('festival-option-one',`Admit One — ${isSinhala?'රු.':'Rs.'} ${data.price_one}`);put('festival-option-two',`Admit Two — ${isSinhala?'රු.':'Rs.'} ${data.price_two}`);
 if(form&&!data.bookings_open){form.querySelector('button[type=submit]').disabled=true;form.querySelector('.booking-feedback').textContent='Reservations are currently closed.';}
 })();
 
