@@ -13,3 +13,17 @@ put('festival-event-details',`${niceDate} · ${data.event_time.slice(0,5)} · ${
 put('festival-option-one',`Admit One — Rs. ${data.price_one}`);put('festival-option-two',`Admit Two — Rs. ${data.price_two}`);
 if(form&&!data.bookings_open){form.querySelector('button[type=submit]').disabled=true;form.querySelector('.booking-feedback').textContent='Reservations are currently closed.';}
 })();
+
+// Public lookup reveals only the booking status; student details stay admin-only.
+for(const lookup of document.querySelectorAll('.ticket-status-form')){
+ lookup.addEventListener('submit',async e=>{
+  e.preventDefault();const output=lookup.querySelector('.ticket-status-result');
+  const ref=lookup.elements.booking_ref.value.trim().toUpperCase();
+  output.textContent='Checking…';
+  const {data,error}=await db.rpc('get_festival_booking_status',{p_booking_ref:ref});
+  if(error){output.textContent='Unable to check status. Please try again.';return;}
+  if(!data){output.textContent='Booking not found. Check your reference.';return;}
+  const labels={pending:'Pending Approval',approved:'Approved — payment at school required',paid:'Paid & Confirmed',rejected:'Rejected'};
+  output.textContent='Booking '+ref+': '+(labels[data]||'Status unavailable');
+ });
+}
