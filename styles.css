@@ -87,3 +87,8 @@ footer{background:#1b100b;color:#f7efdf}
 
 /* Ticket booking confirmation */
 .booking-feedback strong{display:block;margin:12px 0 5px;color:#d6ac5a}.booking-feedback p{margin:5px 0}.booking-feedback[role=status]{line-height:1.6}
+
+.booking-status-lookup{border:1px solid #d8b56a;border-radius:12px;padding:22px;margin:20px 0;background:#fffaf2}
+.booking-status-lookup form{display:grid;gap:12px}
+.booking-status-lookup input{display:block;width:100%;max-width:430px;padding:12px;border:1px solid #cdbda9}
+.ticket-status-result{font-weight:700}
