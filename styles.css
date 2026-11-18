@@ -81,3 +81,6 @@ footer{background:#1b100b;color:#f7efdf}
 .activity-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 #materials,#members,#events{scroll-margin-top:95px}
 @media(prefers-reduced-motion:reduce){.activity-card{transition:none}.activity-card:hover,.activity-card:focus-visible{transform:none}}
+
+/* Film festival reservations */
+.booking-card{max-width:650px;background:#f7f0e6;padding:28px;border:1px solid #d6b97b;border-radius:12px}.booking-card form{display:grid;gap:14px}.booking-card label{display:grid;gap:6px;font-weight:600}.booking-card input,.booking-card select{width:100%;padding:12px;border:1px solid #b7a99b;border-radius:5px;background:white;color:#21150e}.booking-small{font-size:.9rem;opacity:.8;margin-top:15px}.booking-hp{position:absolute!important;left:-10000px!important}.booking-feedback{font-weight:600;overflow-wrap:anywhere}

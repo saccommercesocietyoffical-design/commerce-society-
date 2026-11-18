@@ -1,0 +1,5 @@
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import {SUPABASE_URL,SUPABASE_ANON_KEY} from './supabase-config.js';
+const db=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const form=document.getElementById('ticket-booking-form');
+if(form){const status=form.querySelector('.booking-feedback');form.addEventListener('submit',async e=>{e.preventDefault();if(form.elements.website.value)return;const btn=form.querySelector('button[type=submit]');btn.disabled=true;status.textContent='Submitting reservation…';try{const name=form.elements.student_name.value.trim();const email=form.elements.contact_email.value.trim();if(name.length<2||name.length>100)throw Error('Enter a valid name.');const {data,error}=await db.rpc('create_festival_reservation',{p_student_name:name,p_contact_email:email||null,p_ticket_type:form.elements.ticket_type.value});if(error)throw error;status.textContent=`Reservation received! Reference: ${data}. Save this number. Pay cash at school; admin approval is required.`;form.reset();}catch(err){status.textContent='Reservation failed: '+(err.message||'Please try again.');}finally{btn.disabled=false;}});}
