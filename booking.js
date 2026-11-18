@@ -2,7 +2,7 @@ import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
 import {SUPABASE_URL,SUPABASE_ANON_KEY} from './supabase-config.js';
 const db=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const form=document.getElementById('ticket-booking-form');
-if(form){const status=form.querySelector('.booking-feedback');form.addEventListener('submit',async e=>{e.preventDefault();if(form.elements.website.value)return;const btn=form.querySelector('button[type=submit]');btn.disabled=true;status.textContent='Submitting reservation…';try{const name=form.elements.student_name.value.trim();const email=form.elements.contact_email.value.trim();if(name.length<2||name.length>100)throw Error('Enter a valid name.');const {data,error}=await db.rpc('create_festival_reservation',{p_student_name:name,p_contact_email:email||null,p_ticket_type:form.elements.ticket_type.value});if(error)throw error;status.replaceChildren();const title=document.createElement('strong');title.textContent='✓ Ticket booking request received!';const ref=document.createElement('p');ref.textContent=`Your booking reference: ${data}`;const note=document.createElement('p');note.textContent='Please save this reference. Pay cash at school. Your booking is pending admin approval; this is not a paid or issued ticket.';status.append(title,ref,note);status.setAttribute('role','status');form.reset();}catch(err){status.textContent='Reservation failed: '+(err.message||'Please try again.');}finally{btn.disabled=false;}});}
+if(form){const status=form.querySelector('.booking-feedback');form.addEventListener('submit',async e=>{e.preventDefault();if(form.elements.website.value)return;const btn=form.querySelector('button[type=submit]');btn.disabled=true;status.textContent='Submitting reservation…';try{const name=form.elements.student_name.value.trim();const email=form.elements.contact_email.value.trim();if(name.length<2||name.length>100)throw Error('Enter a valid name.');const {data,error}=await db.rpc('create_festival_reservation',{p_student_name:name,p_contact_email:email||null,p_ticket_type:form.elements.ticket_type.value});if(error)throw error;status.replaceChildren();const title=document.createElement('strong');title.textContent='✓ Ticket booking request received!';const ref=document.createElement('p');ref.textContent=`Your booking reference: ${data}`;const note=document.createElement('p');note.textContent='Please save this reference. Pay cash at school. Your booking is pending admin approval; this is not a paid or issued ticket.';status.append(title,ref,note);status.setAttribute('role','status');saveBookingReference(data);refreshSavedBookings();form.reset();}catch(err){status.textContent='Reservation failed: '+(err.message||'Please try again.');}finally{btn.disabled=false;}});}
 
 // Public event details are read-only; the booking RPC enforces current prices and open status.
 (async()=>{const {data,error}=await db.from('festival_ticket_settings').select('event_title,event_date,event_time,venue,description,price_one,price_two,bookings_open').eq('id',1).single();if(error||!data)return;
@@ -27,4 +27,50 @@ for(const lookup of document.querySelectorAll('.ticket-status-form')){
   const labels={pending:'Pending Approval',approved:'Approved — payment at school required',paid:'Paid & Confirmed',rejected:'Rejected'};
   output.textContent='Booking '+ref+': '+(labels[data]||'Status unavailable');
  });
+}
+
+
+// References are stored only in this browser. Status comes from the database.
+// Deleting a reservation in Admin makes its public status lookup return null.
+const SAVED_BOOKINGS_KEY='society_festival_booking_refs_v1';
+const savedList=document.getElementById('saved-bookings-list');
+function readSavedBookingRefs(){
+ try {const refs=JSON.parse(localStorage.getItem(SAVED_BOOKINGS_KEY)||'[]');
+  return Array.isArray(refs)?[...new Set(refs.filter(x=>typeof x==='string'&&/^FF26-[A-Z0-9]{10}$/.test(x)))].slice(0,30):[];
+ }catch{return [];}
+}
+function saveBookingReference(ref){
+ if(typeof ref!=='string'||!/^FF26-[A-Z0-9]{10}$/.test(ref))return;
+ try{localStorage.setItem(SAVED_BOOKINGS_KEY,JSON.stringify([ref,...readSavedBookingRefs().filter(x=>x!==ref)].slice(0,30)));}catch{}
+}
+let savedRefreshRunning=false;
+async function refreshSavedBookings(){
+ if(!savedList||savedRefreshRunning)return;
+ savedRefreshRunning=true;
+ try{
+  const refs=readSavedBookingRefs();savedList.replaceChildren();
+  if(!refs.length){savedList.textContent='No saved bookings on this browser.';return;}
+  const statuses={pending:'Pending Approval',approved:'Approved — pay at school',paid:'Paid & Confirmed',rejected:'Rejected'};
+  const remaining=[];let networkFailure=false;
+  for(const ref of refs){
+   const {data,error}=await db.rpc('get_festival_booking_status',{p_booking_ref:ref});
+   if(error){networkFailure=true;remaining.push(ref);continue;}
+   if(!data)continue; // Deleted in Admin: remove from browser as well.
+   remaining.push(ref);
+   const card=document.createElement('div');card.className='saved-booking-item';
+   const strong=document.createElement('strong');strong.textContent=ref;
+   const text=document.createElement('span');text.textContent=statuses[data]||'Status unavailable';
+   card.append(strong,text);savedList.append(card);
+  }
+  if(!networkFailure){try{localStorage.setItem(SAVED_BOOKINGS_KEY,JSON.stringify(remaining));}catch{}}
+  if(networkFailure){const msg=document.createElement('p');msg.textContent='Some bookings could not be checked. Please try again later.';savedList.append(msg);}
+  if(!savedList.children.length)savedList.textContent='No active saved bookings.';
+ }finally{savedRefreshRunning=false;}
+}
+if(savedList){
+ refreshSavedBookings();
+ // Recheck after tab focus and periodically while this page is open.
+ window.addEventListener('focus',refreshSavedBookings);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshSavedBookings();});
+ setInterval(()=>{if(!document.hidden)refreshSavedBookings();},30000);
 }
