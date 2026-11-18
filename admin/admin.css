@@ -14,3 +14,8 @@ body.admin-body{min-height:100vh;background:var(--cream)}.admin-shell{width:min(
 
 /* Contact inbox */
 .inbox-list{display:grid;gap:16px}.inbox-message{border:1px solid #e2d5c0;padding:18px;background:#fff;overflow-wrap:anywhere}.inbox-message h3{margin:0 0 8px}.inbox-message small{display:block;margin:8px 0;color:#76685b}.inbox-message p{white-space:pre-wrap;line-height:1.6}.inbox-message button{cursor:pointer;padding:8px 16px;border:1px solid #b59b73;background:#fbf6e9;color:#24160f}
+
+.material-admin-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #ddd}.material-admin-row span{overflow-wrap:anywhere}.material-admin-row button{flex-shrink:0}
+
+/* Booking deletion action */
+.booking-delete-btn{background:#842c2c!important;color:#fff!important;border-color:#a84545!important;margin-left:6px}.booking-delete-btn:hover{background:#a73535!important}
