@@ -19,3 +19,7 @@ body.admin-body{min-height:100vh;background:var(--cream)}.admin-shell{width:min(
 
 /* Booking deletion action */
 .booking-delete-btn{background:#842c2c!important;color:#fff!important;border-color:#a84545!important;margin-left:6px}.booking-delete-btn:hover{background:#a73535!important}
+
+.booking-admin-lookup{padding:16px;margin:12px 0;border:1px solid #cbb47e;border-radius:8px}
+.booking-admin-lookup input{display:block;width:100%;max-width:440px;padding:10px;margin:8px 0}
+.booking-admin-lookup button{margin-right:8px;margin-bottom:8px}
