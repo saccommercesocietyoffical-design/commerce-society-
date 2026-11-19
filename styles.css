@@ -141,3 +141,6 @@ footer{background:#1b100b;color:#f7efdf}
 .material-folder-back:hover {
   background: #a66a22;
 }
+
+/* New searchable study library */
+.study-library-controls{display:grid;grid-template-columns:2fr repeat(3,minmax(130px,1fr));gap:12px;margin:24px 0}.study-library-controls label{display:grid;gap:7px;font-size:13px;font-weight:600}.study-library-controls input,.study-library-controls select{width:100%;padding:13px;border:1px solid #dfcdb2;background:#fff;color:#28140e}.library-count{margin:10px 0 20px;color:#805a38}.materials-grid.library-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:18px}.library-card{min-width:0}@media(max-width:800px){.study-library-controls{grid-template-columns:1fr 1fr}.study-library-controls label:first-child{grid-column:1/-1}}@media(max-width:480px){.study-library-controls{grid-template-columns:1fr}.study-library-controls label:first-child{grid-column:auto}}
