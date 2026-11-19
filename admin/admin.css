@@ -23,3 +23,5 @@ body.admin-body{min-height:100vh;background:var(--cream)}.admin-shell{width:min(
 .booking-admin-lookup{padding:16px;margin:12px 0;border:1px solid #cbb47e;border-radius:8px}
 .booking-admin-lookup input{display:block;width:100%;max-width:440px;padding:10px;margin:8px 0}
 .booking-admin-lookup button{margin-right:8px;margin-bottom:8px}
+
+.gallery-video-management{margin:28px 0;padding:18px;border:1px solid #b89a65;border-radius:10px}.gallery-video-management label{display:block;margin:10px 0}.gallery-video-management input,.gallery-video-management select{max-width:100%}
