@@ -100,3 +100,44 @@ footer{background:#1b100b;color:#f7efdf}
 
 /* Gallery videos */
 .gallery-video-area{margin-top:40px}.gallery-video-area h3{color:#f2d4a2}.gallery-video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px}.gallery-video-card{margin:0;background:#1e1614;border:1px solid #8e704b;border-radius:10px;overflow:hidden}.gallery-video-card iframe,.gallery-video-card video{width:100%;aspect-ratio:16/9;display:block;border:0;background:#000}.gallery-video-card figcaption{padding:12px;color:#fff}
+
+/* Study Materials Folder Design */
+
+.material-folder {
+  background: #ffffff;
+  border: 1px solid #e6d6bd;
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.material-folder:hover {
+  transform: translateY(-5px);
+  border-color: #d9a441;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.material-folder-title {
+  color: #2c160e;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.material-folder-icon {
+  color: #d9a441;
+  font-size: 32px;
+}
+
+.material-folder-back {
+  background: #2c160e;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.material-folder-back:hover {
+  background: #a66a22;
+}
