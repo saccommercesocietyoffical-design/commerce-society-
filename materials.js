@@ -11,7 +11,17 @@ if(section){
  const typeOf=x=>{const c=(x.category||'').toLowerCase();return c.includes('past')?'Past Papers':c.includes('revision')?'Revision': 'Notes';};
  const label=t=>({ 'Past Papers':tr('Past Papers','පසුගිය ප්‍රශ්න පත්‍ර'),'Notes':tr('Notes','සටහන්'),'Revision':tr('Revision','පුනරීක්ෂණ')}[t]||t);
  const filtered=()=>items.filter(x=>(!subject.value||x.subject===subject.value)&&(!grade.value||(grade.value==='O/L'&&['O/L','Grade 10','Grade 11'].includes(x.grade))||(grade.value==='A/L'&&['A/L','Grade 12','Grade 13'].includes(x.grade))));
- const button=(name,detail,click)=>{const b=document.createElement('button');b.type='button';b.className='study-folder';const i=document.createElement('span');i.className='study-folder-icon';i.textContent='📁';const title=document.createElement('strong');title.textContent=name;const sub=document.createElement('small');sub.textContent=detail;b.append(i,title,sub);b.addEventListener('click',click);list.append(b);};
+
+const button=(name,detail,click)=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='study-folder';
+  const title=document.createElement('strong');
+  title.textContent=name;
+  b.append(title);
+  b.addEventListener('click',click);
+  list.append(b);
+};
  function render(){list.replaceChildren();const arr=filtered();const nav=document.createElement('div');nav.className='study-breadcrumb';const home=document.createElement('button');home.type='button';home.textContent=tr('All subjects','සියලු විෂයයන්');home.onclick=()=>{trail=[];render()};nav.append(home);trail.forEach((part,i)=>{const sep=document.createElement('span');sep.textContent=' / ';const step=document.createElement('button');step.type='button';step.textContent=label(part);step.onclick=()=>{trail=trail.slice(0,i+1);render()};nav.append(sep,step)});list.append(nav);
  if(!arr.length){const p=document.createElement('p');p.textContent=tr('No study materials available yet.','තවම අධ්‍යයන සම්පත් නොමැත.');list.append(p);return;}
  const depth=trail.length;let current=arr;
