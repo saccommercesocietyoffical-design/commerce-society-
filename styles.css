@@ -97,3 +97,6 @@ footer{background:#1b100b;color:#f7efdf}
 .saved-bookings h3{margin:0 0 8px}
 .saved-booking-item{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid #e2d5c1}
 .saved-booking-item span{font-weight:600}
+
+/* Gallery videos */
+.gallery-video-area{margin-top:40px}.gallery-video-area h3{color:#f2d4a2}.gallery-video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px}.gallery-video-card{margin:0;background:#1e1614;border:1px solid #8e704b;border-radius:10px;overflow:hidden}.gallery-video-card iframe,.gallery-video-card video{width:100%;aspect-ratio:16/9;display:block;border:0;background:#000}.gallery-video-card figcaption{padding:12px;color:#fff}
