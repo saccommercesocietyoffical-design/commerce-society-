@@ -34,7 +34,7 @@ function preview(){
  $('bulk-submit').disabled=!queue.length;
 }
 $('bulk-files').addEventListener('change',e=>{
- queue=[...e.target.files].filter(f=>/\.pdf$/i.test(f.name));
+ queue=[...e.target.files].filter(f=>/\.pdf$/i.test(f.name)).map(file=>({file,controls:null}));
  $('bulk-info').textContent=`${queue.length} PDFs ready to upload. Check detected details below.`;
  preview();
 });
