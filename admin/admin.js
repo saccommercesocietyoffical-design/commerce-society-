@@ -13,8 +13,25 @@ if (SUPABASE_URL.includes("PASTE_") || SUPABASE_ANON_KEY.includes("PASTE_")) {
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   async function refresh() {
     const {data:{session}} = await supabase.auth.getSession();
-    $("login-panel").hidden = !!session; $("upload-panel").hidden = !session;
-    if (session) { await loadCurrent(); await window.loadSocietyEvents?.(); }
+    let isAdmin = false;
+    if (session) {
+      const {data:{user},error:userError} = await supabase.auth.getUser();
+      if (!userError && user) {
+        const {data} = await supabase.from("site_admins").select("user_id").eq("user_id",user.id).maybeSingle();
+        isAdmin = !!data;
+      }
+    }
+    $("login-panel").hidden = !!session;
+    $("upload-panel").hidden = !isAdmin;
+    if (!isAdmin) {
+      for (const panel of document.querySelectorAll('.admin-panel')) {
+        if (panel.id !== 'login-panel') panel.hidden = true;
+      }
+      if (session) status.textContent = "This account does not have admin permission.";
+    } else {
+      await loadCurrent(); await window.loadSocietyEvents?.();
+    }
+    window.dispatchEvent(new CustomEvent('sac-admin-status',{detail:{isAdmin}}));
   }
   async function loadCurrent() {
     const {data,error} = await supabase.from("society_profile_photos").select("role,public_url");
